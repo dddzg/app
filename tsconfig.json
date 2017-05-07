@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        // "module": "commonjs",
+        "noUnusedLocals": false,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "jsx": "react-native",
+        "allowSyntheticDefaultImports":true,
+        // "outDir": "build",
+        // "rootDir": "src",
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "allowJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "skipLibCheck": true,
+        "importHelpers": true
+    },
+    "exclude": [
+        "App.js",
+        "App.test.js",
+        "build",
+        "node_modules"
+    ],
+    "compileOnSave": false
+}
