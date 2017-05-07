@@ -65,21 +65,6 @@ export default class app extends Component < any, {
         }}>
           <Tab2/>
         </Item>
-        <Item
-          title="我的"
-          key="我的"
-          iconStyle={{
-            width:22,
-            height:22,
-          }}
-          icon={require('../pic/alipay_web.png')}
-          selectedIcon={require('../pic/alipay_web_sel.png')}
-          selected={this.state.selectedTab === this.Tab3}
-          onPress={() => {
-          this.setState({selectedTab: this.Tab3});
-        }}>
-          <Tab3/>
-        </Item>
       </TabBar>
     );
   }

@@ -12,7 +12,9 @@
     "antd-mobile": "^1.1.1",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
+    "react-native-datepicker": "^1.4.7",
     "react-native-foldview": "^1.1.1",
+    "react-native-modal-datetime-picker": "^4.4.0",
     "react-navigation": "^1.0.0-beta.9"
   },
   "devDependencies": {
