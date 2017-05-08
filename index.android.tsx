@@ -5,15 +5,42 @@
  */
 
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image} from "react-native";
-import {Button} from "antd-mobile";
-import {TabBar, Icon, Carousel} from "antd-mobile";
+import {AppRegistry,NativeModules} from "react-native";
 import app,{Express} from './src'
 import { StackNavigator } from 'react-navigation';
+import AppState from './src/AppState'
+import {Provider} from 'mobx-react'
+
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
+
+const UIManager = NativeModules.UIManager;
 const SimpleApp = StackNavigator({
   Home: { screen: app },
   Express:{ screen: Express},
 });
+
+class dzg extends Component<any,any>{
+  componentWillMount() {
+      if (UIManager.setLayoutAnimationEnabledExperimental) {
+          UIManager.setLayoutAnimationEnabledExperimental(true);
+      }
+  }
+  render(){
+    const appState =  new AppState();
+    return (
+      <Provider appState={appState}>
+        <ThemeProvider >
+          <SimpleApp />
+        </ThemeProvider>
+      </Provider>
+    )
+  }
+}
+AppRegistry.registerComponent("app", () => dzg);
+
+
+
+
 /*
 import {Tab1,Tab2,Tab3} from './src'
 export default class app extends Component < any, {
@@ -96,5 +123,3 @@ export default class app extends Component < any, {
 // backgroundColor: "#F5FCFF"   },   welcome: {     fontSize: 20,     textAlign:
 // "center",     margin: 10   },   instructions: {     textAlign: "center",
 // color: "#333333",     marginBottom: 5   } });
-
-AppRegistry.registerComponent("app", () => SimpleApp);

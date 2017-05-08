@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image,TouchableOpacity,ScrollView,Button,Picker,Switch,DatePickerAndroid} from "react-native";
+import {AppRegistry, StyleSheet, Text, View, Image,TouchableOpacity,ScrollView,Picker,Switch,DatePickerAndroid,StatusBar} from "react-native";
 import { Icon,List,InputItem,TextareaItem } from 'antd-mobile';
 import DatePicker from 'react-native-datepicker'
-
+import {inject,observer} from 'mobx-react'
 const _min=new Date();
 const temp=new Date();
 const _max=new Date(temp.setDate(temp.getDate()+1));
@@ -12,9 +12,14 @@ const translateTime=(time:Date)=>{
 }
 const minTimeString=translateTime(_min);
 const maxTimeString=translateTime(_max);
-export default class Express extends Component < any, {type:string,weight:string,upstairs:boolean,care:boolean,date:string} > {
+import { Button } from 'react-native-material-ui';
+@inject('appState')
+class Express extends Component < any, {type:string,weight:string,upstairs:boolean,care:boolean,date:string} > {
     static navigationOptions = {
         title: '代拿快递',
+        headerStyle:{
+            marginTop:24
+        }
     };
     constructor(props){
         super(props);
@@ -161,11 +166,13 @@ export default class Express extends Component < any, {type:string,weight:string
                     >
                     <Text style={{fontSize:16,paddingLeft:6}}>最晚完成日期</Text>
                     </List.Item>
-                    <View>
-                        <Button title={'发布订单'}  onPress={()=>{}}/>
-                    </View>
                 </List>
+                <View style={{marginTop:10,marginLeft:18,marginRight:18}}>
+                    <Button primary text="发送请求" raised />
+                </View>
             </View>
         )
     }
 }
+
+export default Express;

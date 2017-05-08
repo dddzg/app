@@ -18,7 +18,7 @@
         "noImplicitThis": true,
         "suppressImplicitAnyIndexErrors": true,
         "skipLibCheck": true,
-        "importHelpers": true
+        "importHelpers": false
     },
     "exclude": [
         "App.js",

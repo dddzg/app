@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View, Image,ScrollView,Alert,DrawerLayoutAndroid,StatusBar} from "react-native";
 import {Icon, Carousel,WhiteSpace,NoticeBar} from "antd-mobile";
 import { Grid,Toast } from 'antd-mobile';
+import { Button } from 'react-native-material-ui';
 export default class Tab1 extends Component<any,any>{
     public name=['代拿快递','叫早安','课程服务','自定义']
     public englName=['Express','GoodMorning','Class','Self']
@@ -48,7 +49,7 @@ export default class Tab1 extends Component<any,any>{
                     source={require('../pic/drawer-header.png')}
                     />
                     <View style={{
-                        marginLeft:24,
+                        marginLeft:16,
                         position:'absolute',
                         bottom:18,
                     }}>
@@ -69,12 +70,23 @@ export default class Tab1 extends Component<any,any>{
                     </View>
                 </View>
                 <View style={{
-                    marginLeft:24,
                     marginTop:9
                 }}>
-                    <Text style={{fontSize: 18,marginTop:9,marginBottom:9}}>个人信息</Text>
-                    <Text style={{fontSize: 18,marginTop:9,marginBottom:9}}>我接的单</Text>
-                    <Text style={{fontSize: 18,marginTop:9,marginBottom:9}}>关于APP</Text>
+                {
+                    ['个人信息','我接的单','关于APP'].map((value,index)=>
+                        <Button key={index} default text={value} style={{
+                            text:{
+                                fontSize: 18,
+                                color:'rgb(148, 148, 148)',
+                                fontWeight:'normal'
+                            },
+                            container:{
+                                height:44,
+                                justifyContent:'flex-start'
+                            }
+                        }}/>
+                    )
+                }
                 </View>
             </View>
         );
@@ -87,7 +99,7 @@ export default class Tab1 extends Component<any,any>{
                 renderNavigationView={() => navigationView}>
                 <StatusBar
                     translucent ={true}
-                    backgroundColor ='rgba(0,0,0,0.3)'
+                    backgroundColor ='rgba(0,0,0,0.2)'
                 />
                 <ScrollView style={{backgroundColor:'#ececf1'}}>
                     <View style={{

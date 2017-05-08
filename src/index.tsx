@@ -2,12 +2,12 @@ export {default as Tab1} from './Tab1'
 export {default as Tab2} from './Tab2'
 export {default as Tab3} from './Tab3'
 export {default as Express} from './Express'
+export {default as AppState} from './AppState'
 
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image} from "react-native";
+import {AppRegistry, StyleSheet, Text, View, Image,StatusBar} from "react-native";
 import {Button} from "antd-mobile";
 import {TabBar, Icon, Carousel} from "antd-mobile";
-
 import {Tab1,Tab2,Tab3} from './'
 export default class app extends Component < any, {
   selectedTab : string
