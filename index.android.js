@@ -5,13 +5,15 @@
  */
 import React, { Component } from "react";
 import { AppRegistry, NativeModules } from "react-native";
-import app, { Express } from './src';
+import app, { Express, Login, Register } from './src';
 import { StackNavigator } from 'react-navigation';
 import AppState from './src/AppState';
 import { Provider } from 'mobx-react';
 import { ThemeProvider } from 'react-native-material-ui';
 const UIManager = NativeModules.UIManager;
 const SimpleApp = StackNavigator({
+    Login: { screen: Login },
+    Register: { screen: Register },
     Home: { screen: app },
     Express: { screen: Express },
 });

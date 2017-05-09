@@ -3,44 +3,36 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
-import React, {Component} from "react";
-import {AppRegistry,NativeModules} from "react-native";
-import app,{Express} from './src'
+import React, { Component } from "react";
+import { AppRegistry, NativeModules } from "react-native";
+import app, { Express, Login, Register } from './src';
 import { StackNavigator } from 'react-navigation';
-import AppState from './src/AppState'
-import {Provider} from 'mobx-react'
-
-import { COLOR, ThemeProvider } from 'react-native-material-ui';
-
+import AppState from './src/AppState';
+import { Provider } from 'mobx-react';
+import { ThemeProvider } from 'react-native-material-ui';
 const UIManager = NativeModules.UIManager;
 const SimpleApp = StackNavigator({
-  Home: { screen: app },
-  Express:{ screen: Express},
+    Login: { screen: Login },
+    Register: { screen: Register },
+    Home: { screen: app },
+    Express: { screen: Express },
 });
-
-class dzg extends Component<any,any>{
-  componentWillMount() {
-      if (UIManager.setLayoutAnimationEnabledExperimental) {
-          UIManager.setLayoutAnimationEnabledExperimental(true);
-      }
-  }
-  render(){
-    const appState =  new AppState();
-    return (
-      <Provider appState={appState}>
-        <ThemeProvider >
+class dzg extends Component<any,any> {
+    componentWillMount() {
+        if (UIManager.setLayoutAnimationEnabledExperimental) {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
+    }
+    render() {
+        const appState = new AppState();
+        return (<Provider appState={appState}>
+        <ThemeProvider>
           <SimpleApp />
         </ThemeProvider>
-      </Provider>
-    )
-  }
+      </Provider>);
+    }
 }
 AppRegistry.registerComponent("app", () => dzg);
-
-
-
-
 /*
 import {Tab1,Tab2,Tab3} from './src'
 export default class app extends Component < any, {
@@ -122,4 +114,4 @@ export default class app extends Component < any, {
 // flex: 1,     justifyContent: "center",     alignItems: "center",
 // backgroundColor: "#F5FCFF"   },   welcome: {     fontSize: 20,     textAlign:
 // "center",     margin: 10   },   instructions: {     textAlign: "center",
-// color: "#333333",     marginBottom: 5   } });
+// color: "#333333",     marginBottom: 5   } }); 
