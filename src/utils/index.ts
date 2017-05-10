@@ -1,4 +1,3 @@
-import { DatePickerIOSProperties } from '___React';
 import {Platform} from 'react-native'
 const translateToString=(obj:{}):string=>{
     const arr=Object.keys(obj);
@@ -43,5 +42,26 @@ const post=(url:string,data:{})=>{
     })
 }
 
+const get=(url:string,data:{}={})=>{
+    return new Promise<any>((res,rej)=>{
+        try{
+            (async()=>{
+                let temp:any=await fetch(data==={}?url:`${url}?translateToString(data)`,{
+                    method: 'GET',
+                    mode: "cors",
+                    credentials: 'include',
+                });
+                temp=await temp.text();
+                if (Platform.OS === 'android') {
+                    temp = temp.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, ''); // If android , I've removed unwanted chars. 
+                }
+                temp=JSON.parse(temp);
+                res(temp);
+            })();
+        }catch(err){
+            rej(err);
+        }
+    })
+}
 export default post
-export {post}
+export {post,get}

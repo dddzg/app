@@ -51,5 +51,27 @@ const post = (url, data) => {
         }
     });
 };
+const get = (url, data = {}) => {
+    return new Promise((res, rej) => {
+        try {
+            (() => __awaiter(this, void 0, void 0, function* () {
+                let temp = yield fetch(data === {} ? url : `${url}?translateToString(data)`, {
+                    method: 'GET',
+                    mode: "cors",
+                    credentials: 'include',
+                });
+                temp = yield temp.text();
+                if (Platform.OS === 'android') {
+                    temp = temp.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, ''); // If android , I've removed unwanted chars. 
+                }
+                temp = JSON.parse(temp);
+                res(temp);
+            }))();
+        }
+        catch (err) {
+            rej(err);
+        }
+    });
+};
 export default post;
-export { post };
+export { post, get };

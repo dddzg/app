@@ -1,12 +1,14 @@
 import React, {Component} from "react";
-import {Text,View,Image,Keyboard,Alert} from 'react-native'
+import {Text,View,Image,Keyboard,Alert,AsyncStorage} from 'react-native'
 import {InputItem,List,Toast} from 'antd-mobile'
 import { Button } from 'react-native-material-ui';
-import {inject} from 'mobx-react'
+import {ip} from './'
 import { NavigationActions } from 'react-navigation'
-import {post} from './index'
+import {post,get} from './index'
+import {inject} from 'mobx-react'
+import AppState from './AppState'
 @inject('appState')
-class Register extends Component<any,{tel?:string,name?:string,password?:string}>{
+class Register extends Component<{appState:AppState,navigation:any},{tel?:string,name?:string,password?:string}>{
     static navigationOptions = {
         title: '注册',
     };
@@ -28,19 +30,38 @@ class Register extends Component<any,{tel?:string,name?:string,password?:string}
         if (tel.length!==11) {Toast.fail('手机号码错误',1); return;}
         if (name.length===0) {Toast.fail('昵称不能为空',1); return;}
         if (password==='undefined' || password.length===0) {Toast.fail('密码不能为空',1); return;}
-
         const send=async ()=>{
             try{
                 let data={username:name,phone:tel,pw:password};
-                const ans=await post('http://139.199.71.40/liin_php/user/register.php',data);
+                const ans=await post(ip+'/user/register.php',data);
                 if (ans.response===0) {
-                    const resetAction = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({ routeName: 'Home'})
-                        ]
-                    })
-                    this.props.navigation.dispatch(resetAction)
+                    const logindata={
+                        phone:data.phone,
+                        pw:data.pw
+                    }
+                    const [loginAns,id]=await Promise.all([post(ip+'/user/login.php',logindata),
+                    get(ip+'/user/getUid.php')]); //并行！虽然感觉叫并行也不是很对？但也感觉不叫并发。
+                    console.log(loginAns);
+                    console.log(id);
+                    if (loginAns.response===0 && id.response===0){
+                        this.props.appState.name=data.username;
+                        this.props.appState.password=data.pw;
+                        this.props.appState.tel=data.phone;
+                        this.props.appState.id=id.info;
+                        await AsyncStorage.multiSet([['phone',data.phone],['pw',data.pw],['id',id.info],['name',data.username]]);
+                        // console.log(this.props.appState);
+                        const resetAction = NavigationActions.reset({
+                            index: 0,
+                            actions: [
+                                NavigationActions.navigate({ routeName: 'Home'})
+                            ]
+                        })
+                        this.props.navigation.dispatch(resetAction)
+                    }
+                    else{
+                        Toast.hide();
+                        Toast.fail(ans.info,1);
+                    }
                 }
                 else{
                     Toast.hide();

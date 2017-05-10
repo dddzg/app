@@ -22,6 +22,7 @@ export default class Card extends Component<CardProps,any>{
             return require('./t4.png')
         if (num===5)
             return require('./t5.png')
+        return require('./t1.png')
     }
     constructor(props){
         super(props);

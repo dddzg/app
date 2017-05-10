@@ -5,7 +5,8 @@ export {default as Express} from './Express'
 export {default as AppState} from './AppState'
 export {default as Login} from './Login'
 export {default as Register} from './Register'
-export {default as post} from './utils'
+export {post,get} from './utils'
+export {ip} from './config'
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View, Image,StatusBar} from "react-native";
 import {Button,Toast} from "antd-mobile";
@@ -35,7 +36,6 @@ export default class app extends Component < any, {
   }
   render() {
     const Item = TabBar.Item;
-    const navigate = this.props.navigation.navigate;
     return (
       <TabBar
         children
@@ -55,7 +55,7 @@ export default class app extends Component < any, {
           onPress={() => {
           this.setState({selectedTab: this.Tab1});
         }}>
-          <Tab1 navigate={navigate}/>
+          <Tab1 navigation={this.props.navigation}/>
         </Item>
         <Item
           title="抢单"

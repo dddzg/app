@@ -8,16 +8,32 @@ import {
     ScrollView,
     Alert,
     DrawerLayoutAndroid,
-    StatusBar
+    StatusBar,
+    AsyncStorage
 } from "react-native";
 import {Icon, Carousel, WhiteSpace, NoticeBar} from "antd-mobile";
 import {Grid, Toast} from 'antd-mobile';
 import {Button} from 'react-native-material-ui';
-export default class Tab1 extends Component < any,
+import {inject} from 'mobx-react'
+import AppState from './AppState'
+import { NavigationActions } from 'react-navigation'
+@inject('appState')
+class Tab1 extends Component < {appState?:AppState,[index:string]:any},
 any > {
     public name = ['代拿快递', '叫早安', '课程服务', '自定义']
     public englName = ['Express', 'GoodMorning', 'Class', 'Self']
     public source = [require('./../pic/d2.png'), require('./../pic/d1.png'), require('./../pic/d3.png'), require('./../pic/d4.png')]
+    exit=async ()=>{
+        console.log(this.props);
+        await AsyncStorage.multiRemove(['phone','pw']);
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Login'})
+            ]
+        })
+        this.props.navigation.dispatch(resetAction)
+    }
     public renderItem(dataItem : {
         text: string
     }, index : number) {
@@ -80,7 +96,7 @@ any > {
                             style={{
                             fontSize: 16,
                             marginTop: 8
-                        }}>飞奔的啦啦啦</Text>
+                        }}>{this.props.appState && this.props.appState.name}</Text>
                     </View>
                 </View>
                 <View style={{
@@ -102,6 +118,23 @@ any > {
                         }
                     }}/>)
                     }
+                    <Button
+                        default
+                        text={'退出登录'}
+                        style={{
+                        text: {
+                            fontSize: 18,
+                            color: '#D50000',
+                            fontWeight: 'normal'
+                        },
+                        container: {
+                            height: 44,
+                            justifyContent: 'flex-start',
+                        }
+                        
+                    }}
+                        onPress={this.exit}
+                    />
                 </View>
             </View>
         );
@@ -151,7 +184,7 @@ any > {
                             <Text
                                 style={{
                                 marginLeft: 3
-                            }}>飞奔的啦啦啦</Text>
+                            }}>{this.props.appState && this.props.appState.name}</Text>
                         </View>
                         <View
                             style={{
@@ -198,9 +231,11 @@ any > {
                         renderItem={this
                         .renderItem
                         .bind(this)}
-                        onClick={(_el, index) => this.props.navigate(this.englName[index])}/>
+                        onClick={(_el, index) => this.props.navigation.navigate(this.englName[index])}/>
                 </ScrollView>
             </DrawerLayoutAndroid>
         )
     }
 }
+
+export default Tab1;

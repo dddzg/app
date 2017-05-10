@@ -59,6 +59,14 @@ export default class Tab2 extends Component < any, any > {
                         title='叫早安'
                         num={3}
                     />
+                    <Card
+                        content='明天早上6:00叫我起床'
+                        img={3}
+                        school='华南理工大学'
+                        money={100}
+                        title='叫早安'
+                        num={3}
+                    />
                     {/*<Card/>
                     <Card/>
                     <Card/>
