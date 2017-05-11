@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View, Image,ScrollView} from "react-native";
 import { Icon } from 'antd-mobile';
-interface CardProps{
+export interface CardProps{
     money:number,
     title:string,
     content:string,
@@ -63,7 +63,7 @@ export default class Card extends Component<CardProps,any>{
                 
                 <Text style={styles.words}>{this.props.title+'  '}
                     <Text style={styles.smallWords}>
-                        {this.props.content}
+                        {this.props.content.length>=15?this.props.content.slice(0,15)+'……':this.props.content}
                     </Text>
                 </Text>
                 <View style={{
@@ -83,12 +83,12 @@ export default class Card extends Component<CardProps,any>{
                     </Text>
                     <Text>
                         <Text style={{
-                            color:'#5bc4ee',
+                            color:'#2196F3',
                         }}>
                             接受任务 
                         </Text>
                         <Icon type={'right'}
-                        size={'xxs'} color='#5bc4ee' />
+                        size={'xxs'} color='#2196F3' />
                     </Text>
                 </View>
                 </View>
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     smallWords:{
         marginLeft:15,
         fontSize:15,
+        
     },
     words:{
         marginTop:0,

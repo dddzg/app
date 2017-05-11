@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text,View,Image,Keyboard,AsyncStorage} from 'react-native'
+import {Text,View,Image,Keyboard,AsyncStorage,StatusBar} from 'react-native'
 import {InputItem,List,Toast} from 'antd-mobile'
 import { Button } from 'react-native-material-ui';
 import AppState from './AppState'
@@ -20,11 +20,12 @@ class Login extends Component<{appState:AppState,[index:string]:any},{tel:string
         }
     }
     componentWillMount(){
+        this.props.appState.navigation=this.props.navigation;
         const autoLogin=async ()=>{
             const data=await AsyncStorage.multiGet(['phone','pw','id','name']);
             console.log(data);
             if (data[0][1] && data[1][1] && data[2][1] && data[3][1]){
-                Toast.loading('自动登陆中...',0);
+                Toast.loading('自动登录中...',0);
                 const login=await post(ip+'/user/login.php',{phone:data[0][1],pw:data[1][1]});
                 if (login.response===0){
                     this.props.appState.id=data[2][1];
@@ -94,6 +95,12 @@ class Login extends Component<{appState:AppState,[index:string]:any},{tel:string
         return(
             <View>
                 <View>
+                    <StatusBar translucent ={true} backgroundColor='rgba(0,0,0,0.2)'/>
+                    <View
+                        style={{
+                        backgroundColor: '#2196F3',
+                        height: 24
+                    }}></View>
                     <View style={{alignItems:'center'}}>
                         <Image
                             style={{

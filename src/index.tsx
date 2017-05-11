@@ -5,8 +5,10 @@ export {default as Express} from './Express'
 export {default as AppState} from './AppState'
 export {default as Login} from './Login'
 export {default as Register} from './Register'
+export {Drawer} from './Drawer'
 export {post,get} from './utils'
 export {ip} from './config'
+//for lazy
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View, Image,StatusBar} from "react-native";
 import {Button,Toast} from "antd-mobile";

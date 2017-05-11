@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image,TouchableOpacity,ScrollView,Picker,Switch,DatePickerAndroid,StatusBar} from "react-native";
-import { Icon,List,InputItem,TextareaItem } from 'antd-mobile';
+import {AppRegistry, StyleSheet, Text, View, Image,TouchableOpacity,Slider,ScrollView,Picker,Switch,DatePickerAndroid,StatusBar,Keyboard} from "react-native";
+import { Icon,List,InputItem,TextareaItem,Toast  } from 'antd-mobile';
 import DatePicker from 'react-native-datepicker'
 import {inject,observer} from 'mobx-react'
+import {post,ip} from './'
 const _min=new Date();
 const temp=new Date();
 const _max=new Date(temp.setDate(temp.getDate()+1));
@@ -12,9 +13,18 @@ const translateTime=(time:Date)=>{
 }
 const minTimeString=translateTime(_min);
 const maxTimeString=translateTime(_max);
+import { AppState } from './'
 import { Button } from 'react-native-material-ui';
 @inject('appState')
-class Express extends Component < any, {type:string,weight:string,upstairs:boolean,care:boolean,date:string} > {
+class Express extends Component < {appState:AppState}, {
+        type:string,
+        weight:string,
+        upstairs:boolean,
+        care:boolean,
+        date:string,
+        content:string,
+        price:string
+    } > {
     static navigationOptions = {
         title: '代拿快递',
         headerStyle:{
@@ -28,8 +38,35 @@ class Express extends Component < any, {type:string,weight:string,upstairs:boole
             weight:'2公斤以下',
             upstairs:false,
             care:false,
-            date:minTimeString
+            date:minTimeString,
+            content:'',
+            price:'4'
         }
+    }
+    submit=()=>{
+        Keyboard.dismiss();
+        const data={
+            openid:this.props.appState.id,
+            service_type_id:'2',
+            service_expire_time:this.state.date,
+            service_detail:this.state.content,
+            total_fee:this.state.price,
+            username:this.props.appState.name,
+            user_address:'华南理工大学',
+            user_phone:this.props.appState.tel,
+            extra:`${this.state.type}。${this.state.weight}。${this.state.care?'保管。':''}${this.state.upstairs?'上楼。':''}`
+        }
+        const go=async ()=>{
+            const res=await post(ip+'/order/insert.php',data);
+            if (res.response===0){
+                Toast.success('提交成功',1);
+                this.props.appState.navigation.goBack();
+            }else{
+                Toast.info(res.info,1);
+            }
+        }
+        go();
+        console.log(data);
     }
     public name=[
         '京东',
@@ -48,7 +85,8 @@ class Express extends Component < any, {type:string,weight:string,upstairs:boole
     render(){
         
         return (
-            <View>
+            <ScrollView>
+                <StatusBar translucent ={true} backgroundColor='#1878c2'/>
                 <List renderHeader={() => '您的服务需求'}>
                     {/*<InputItem
                         clear
@@ -56,6 +94,8 @@ class Express extends Component < any, {type:string,weight:string,upstairs:boole
                     >帐号</InputItem>*/}
                     <List.Item >
                         <TextareaItem
+                        value={this.state.content}
+                        onChange={(value)=>{this.setState({content:value})}}
                         style={{marginLeft:0}}
                         rows={3}
                         placeholder='请把快递领取信息完整复制此处。'
@@ -166,11 +206,26 @@ class Express extends Component < any, {type:string,weight:string,upstairs:boole
                     >
                     <Text style={{fontSize:16,paddingLeft:6}}>最晚完成日期</Text>
                     </List.Item>
+                    <List.Item>
+                        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
+                            <Text style={{fontSize:16,paddingLeft:6}}>小费</Text>
+                            <View style={{width:"60%",flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
+                                <Text style={{fontSize:16}}>¥</Text>
+                                <InputItem
+                                    style={{flex:1}}
+                                    onChange={price=>this.setState({price:price})}
+                                    value={this.state.price}
+                                    type="number"
+                                />
+                                
+                            </View>
+                        </View>
+                    </List.Item>
                 </List>
-                <View style={{marginTop:10,marginLeft:18,marginRight:18}}>
-                    <Button primary text="发送请求" raised />
+                <View style={{marginTop:10,marginLeft:18,marginRight:18,marginBottom:18}}>
+                    <Button primary text={"发 布 ( "+this.state.price+' 元 )'} raised onPress={this.submit}/>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }

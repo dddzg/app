@@ -4,7 +4,7 @@
  * @flow
  */
 import React, { Component } from "react";
-import { AppRegistry, NativeModules } from "react-native";
+import { AppRegistry, NativeModules,StatusBar,View } from "react-native";
 import app, { Express, Login, Register } from './src';
 import { StackNavigator } from 'react-navigation';
 import AppState from './src/AppState';
