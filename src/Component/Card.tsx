@@ -1,14 +1,18 @@
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View, Image,ScrollView} from "react-native";
-import { Icon } from 'antd-mobile';
+import { Icon,Toast } from 'antd-mobile';
+import {post,ip} from '../'
+import {inject} from 'mobx-react'
 export interface CardProps{
     money:number,
     title:string,
     content:string,
     school:string,
     img:number
-    num:number
+    id:number,
+    [index:string]:any
 }
+@inject('appState')
 export default class Card extends Component<CardProps,any>{
     backgroundImg(num:number){
         // let num=Math.floor(Math.random()*5)+1;
@@ -26,6 +30,28 @@ export default class Card extends Component<CardProps,any>{
     }
     constructor(props){
         super(props);
+    }
+    submit=()=>{
+        const data={
+            server_openid:this.props.appState.id,
+            id:this.props.id
+        }
+        Toast.loading('接单中……',0);
+        const go=async ()=>{
+            const res=await post(ip+'/order/take.php',data);
+            if (res.response===0){
+                Toast.hide();
+                Toast.success('接单成功',1);
+                this.props.appState.getWorks();
+                console.log(res);
+                // console.log(this.props.appState.navigation);
+                // this.props.navigation.goBack();
+            }else{
+                Toast.info(res.info,1);
+            }
+        }
+        go();
+        console.log(data);
     }
     render(){
         return (
@@ -81,7 +107,7 @@ export default class Card extends Component<CardProps,any>{
                             {' '+this.props.school}
                         </Text>
                     </Text>
-                    <Text>
+                    <Text onPress={this.submit}>
                         <Text style={{
                             color:'#2196F3',
                         }}>

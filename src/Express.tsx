@@ -16,7 +16,7 @@ const maxTimeString=translateTime(_max);
 import { AppState } from './'
 import { Button } from 'react-native-material-ui';
 @inject('appState')
-class Express extends Component < {appState:AppState}, {
+class Express extends Component < {appState:AppState,[index:string]:any}, {
         type:string,
         weight:string,
         upstairs:boolean,
@@ -60,7 +60,9 @@ class Express extends Component < {appState:AppState}, {
             const res=await post(ip+'/order/insert.php',data);
             if (res.response===0){
                 Toast.success('提交成功',1);
-                this.props.appState.navigation.goBack();
+                console.log(res);
+                // console.log(this.props.appState.navigation);
+                this.props.navigation.goBack();
             }else{
                 Toast.info(res.info,1);
             }

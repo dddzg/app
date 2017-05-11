@@ -141,9 +141,9 @@ class Drawer extends Component<{name:string,exit:any},{}>{
                         <Icon type='right' color='#108ee9' size='xxs'></Icon>
                     </View>
                 </View>
-                <ScrollView style={{backgroundColor:'#f5f5f9'}}>
-                {this.props.children}
-                </ScrollView>
+                <View style={{backgroundColor:'#f5f5f9'}}>
+                    {this.props.children}
+                </View>
             </DrawerLayoutAndroid>
         )
     }

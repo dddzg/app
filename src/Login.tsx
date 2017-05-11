@@ -23,11 +23,11 @@ class Login extends Component<{appState:AppState,[index:string]:any},{tel:string
         this.props.appState.navigation=this.props.navigation;
         const autoLogin=async ()=>{
             const data=await AsyncStorage.multiGet(['phone','pw','id','name']);
-            console.log(data);
             if (data[0][1] && data[1][1] && data[2][1] && data[3][1]){
                 Toast.loading('自动登录中...',0);
                 const login=await post(ip+'/user/login.php',{phone:data[0][1],pw:data[1][1]});
                 if (login.response===0){
+                    console.log(login);
                     this.props.appState.id=data[2][1];
                     this.props.appState.name=data[3][1];
                     this.props.appState.password=data[1][1];
