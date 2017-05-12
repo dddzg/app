@@ -20,7 +20,18 @@ export default class AppState {
         })
         this.navigation.dispatch(resetAction);
     }  
-    initData:any[]
+    initData:any[]=[]
+    myOrderData:any[]=[]
+    @action 
+    addData=(id:string)=>{
+        for(let temp of this.initData){
+            if (temp.id===id) {
+                this.myOrderData.push(temp);
+                console.log(this.myOrderData);
+                break;
+            }
+        }
+    }
     @observable data:CardProps[]=[]
     @action 
     getWorks=async ()=>{
@@ -28,14 +39,14 @@ export default class AppState {
         data=data.info;
         console.log(data);
         this.initData=data;
-        this.data=(data as any[]).map((value,index)=>{
+        this.data=(data as any[]).map((value,_index)=>{
                 return {
                     money:Math.floor(value.total_fee) ,
                     title:name[value.service_type_id],
                     content:value.service_detail,
                     school:value.user_address,
-                    img:index%4+1,
-                    id:value.id,
+                    img:Number(value.id)%4+1,
+                    id:value.id
                 }
             })
     }

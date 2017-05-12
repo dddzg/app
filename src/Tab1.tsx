@@ -12,13 +12,14 @@ import {
     AsyncStorage
 } from "react-native";
 import {Icon, Carousel, WhiteSpace, NoticeBar} from "antd-mobile";
-import {Grid, Toast} from 'antd-mobile';
-import {Button} from 'react-native-material-ui';
+import {Grid, Toast,List} from 'antd-mobile';
+import {Button } from 'react-native-material-ui';
 import {inject} from 'mobx-react'
 import AppState from './AppState'
 import { NavigationActions } from 'react-navigation'
-
+import Card from './Component/Card'
 import {Drawer} from './'
+const name = ['','叫早安', '代拿快递', '课程服务', '自定义']
 @inject('appState')
 class Tab1 extends Component < {appState?:AppState,[index:string]:any},
 any > {
@@ -87,6 +88,29 @@ any > {
                         .renderItem
                         .bind(this)}
                         onClick={(_el, index) => this.props.navigation.navigate(this.englName[index])}/>
+                    <View style={{paddingBottom:80,backgroundColor:'#f5f5f9'}}>
+                        {
+                            (this.props.appState as any).myOrderData.length?
+                            <List renderHeader={() => '我接的单'}>
+                                {this.props.appState && this.props.appState.myOrderData.map((value)=>{
+                                    console.log(value);
+                                    return (
+                                        <Card 
+                                        key={value.id} 
+                                        money={Math.floor(value.total_fee)}
+                                        title={name[value.service_type_id]}
+                                        content={value.service_detail}
+                                        school={value.user_address}
+                                        img={Number(value.id)%4+1}
+                                        id={value.id}
+                                        phone={value.user_phone}
+                                        extra={value.extra}
+                                        />
+                                    )
+                                })}
+                            </List>:null
+                        }
+                    </View>
                </ScrollView>
             </Drawer>
         )

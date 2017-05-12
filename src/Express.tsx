@@ -225,7 +225,7 @@ class Express extends Component < {appState:AppState,[index:string]:any}, {
                     </List.Item>
                 </List>
                 <View style={{marginTop:10,marginLeft:18,marginRight:18,marginBottom:18}}>
-                    <Button primary text={"发 布 ( "+this.state.price+' 元 )'} raised onPress={this.submit}/>
+                    <Button primary text={`发 布 ( ${this.state.price} 元 )`} raised onPress={this.submit}/>
                 </View>
             </ScrollView>
         )

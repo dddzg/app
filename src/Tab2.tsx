@@ -1,12 +1,21 @@
 import React, {Component} from "react";
-import {StyleSheet, Text, View, Image,ScrollView,RefreshControl} from "react-native";
+import {StyleSheet, Text, View, Image,ScrollView,RefreshControl,Platform,NativeModules,LayoutAnimation} from "react-native";
 import {Icon, Carousel,WhiteSpace} from "antd-mobile";
 import Card from './Component/Card'
 import {inject,observer} from 'mobx-react'
 import {AppState,Drawer,get,ip} from './'
 import {CardProps} from './Component/Card'
-
-
+const UIManager = NativeModules.UIManager;
+var CustomLayoutAnimation = {
+    duration: 666,
+    create: {
+      type: LayoutAnimation.Types.linear,
+      property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+      type: LayoutAnimation.Types.easeInEaseOut,
+    },
+  };
 @inject('appState')
 @observer
 class Tab2 extends Component < {appState?:AppState},{data:CardProps[],isRefresh:boolean} > {
@@ -16,9 +25,15 @@ class Tab2 extends Component < {appState?:AppState},{data:CardProps[],isRefresh:
             data:[],
             isRefresh:false
         }
+        if (UIManager.setLayoutAnimationEnabledExperimental) {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
     }
     componentDidMount(){
         this.props.appState&& this.props.appState.getWorks();
+    }
+    componentWillUpdate() {
+        LayoutAnimation.configureNext(CustomLayoutAnimation);
     }
     fresh=async ()=>{
         this.setState({isRefresh:true});
@@ -59,10 +74,10 @@ class Tab2 extends Component < {appState?:AppState},{data:CardProps[],isRefresh:
                         }}/>
                     </Carousel>
                     <View style={{height:'100%',paddingBottom:70}}>
-                        {this.props.appState && this.props.appState.data.map((value,index)=>{
+                        {this.props.appState && this.props.appState.data.map((value,_index)=>{
                             return (
                                 <Card
-                                key={index}
+                                key={value.id}
                                 {...value}
                                 />
                             )

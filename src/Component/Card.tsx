@@ -10,6 +10,8 @@ export interface CardProps{
     school:string,
     img:number
     id:number,
+    phone?:string
+    extra?:string
     [index:string]:any
 }
 @inject('appState')
@@ -37,19 +39,20 @@ export default class Card extends Component<CardProps,any>{
             id:this.props.id
         }
         Toast.loading('接单中……',0);
-        const go=async ()=>{
-            const res=await post(ip+'/order/take.php',data);
-            if (res.response===0){
-                Toast.hide();
-                Toast.success('接单成功',1);
-                this.props.appState.getWorks();
-                console.log(res);
-                // console.log(this.props.appState.navigation);
-                // this.props.navigation.goBack();
-            }else{
-                Toast.info(res.info,1);
+            const go=async ()=>{
+                const res=await post(ip+'/order/take.php',data);
+                if (res.response===0){
+                    Toast.hide();
+                    Toast.success('接单成功',1);
+                    this.props.appState.addData(this.props.id);
+                    this.props.appState.getWorks();
+                    console.log(res);
+                    // console.log(this.props.appState.navigation);
+                    // this.props.navigation.goBack();
+                }else{
+                    Toast.info(res.info,1);
+                }
             }
-        }
         go();
         console.log(data);
     }
@@ -104,18 +107,24 @@ export default class Card extends Component<CardProps,any>{
                         <Text style={{
                             color:'#a7a7a7',
                         }}>
-                            {' '+this.props.school}
+                            {' '+(this.props.extra || this.props.school)}
                         </Text>
                     </Text>
-                    <Text onPress={this.submit}>
+                    {
+                        this.props.phone?
                         <Text style={{
-                            color:'#2196F3',
-                        }}>
-                            接受任务 
+                                color:'#2196F3',
+                        }}>{this.props.phone}</Text>:
+                        <Text onPress={this.submit}>
+                            <Text style={{
+                                color:'#2196F3',
+                            }}>
+                                接受任务
+                            </Text>
+                            <Icon type={'right'}
+                            size={'xxs'} color='#2196F3' />
                         </Text>
-                        <Icon type={'right'}
-                        size={'xxs'} color='#2196F3' />
-                    </Text>
+                    }
                 </View>
                 </View>
             </View>
