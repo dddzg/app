@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Text,View,Image,Keyboard,Alert,AsyncStorage,StatusBar} from 'react-native'
-import {InputItem,List,Toast} from 'antd-mobile'
+import {View,Image,Keyboard,AsyncStorage,StatusBar} from 'react-native'
+import {InputItem,Toast} from 'antd-mobile'
 import { Button } from 'react-native-material-ui';
 import {ip} from './'
 import { NavigationActions } from 'react-navigation'
@@ -11,6 +11,9 @@ import AppState from './AppState'
 class Register extends Component<{appState:AppState,navigation:any},{tel?:string,name?:string,password?:string}>{
     static navigationOptions = {
         title: '注册',
+        headerStyle:{
+            marginTop:24
+        }
     };
     constructor(props){
         super(props);
@@ -78,12 +81,7 @@ class Register extends Component<{appState:AppState,navigation:any},{tel?:string
         return(
             <View>
                 <View>
-                    <StatusBar translucent ={true} backgroundColor='rgba(0,0,0,0.2)'/>
-                    <View
-                        style={{
-                        backgroundColor: '#2196F3',
-                        height: 24
-                    }}></View>
+                    <StatusBar translucent ={true} backgroundColor='#1878c2'/>
                     <View style={{alignItems:'center'}}>
                         <Image
                             style={{

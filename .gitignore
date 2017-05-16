@@ -58,5 +58,6 @@ src/Component/*.png
 src/*.js
 src/*.jsx
 pic/
-
+android/*
+android/**/*
 .vscode/

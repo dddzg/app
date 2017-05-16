@@ -1,4 +1,4 @@
-import {DrawerLayoutAndroid,View,Image,Text,StatusBar,ScrollView} from 'react-native'
+import {DrawerLayoutAndroid,View,Image,Text,StatusBar} from 'react-native'
 import {Button} from 'react-native-material-ui';
 import React,{Component} from 'react'
 import {Icon} from 'antd-mobile'

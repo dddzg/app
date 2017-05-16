@@ -57,7 +57,7 @@ any > {
         return (
             <Drawer exit={this.props.appState && this.props.appState.exit} name={String(this.props.appState && this.props.appState.name)}>
                 <ScrollView style={{backgroundColor:'#f5f5f9',height:'100%'}} >
-                    <Carousel autoplayInterval={1000} infinite autoplay={true} selectedIndex={0}>
+                    <Carousel autoplayInterval={1000} autoplay={true} selectedIndex={0}>
                         <Image
                             key={1}
                             style={{
@@ -69,6 +69,15 @@ any > {
                         }}/>
                         <Image
                             key={2}
+                            style={{
+                            width: '100%',
+                            height: 160
+                        }}
+                            source={{
+                            uri: 'http://images.enet.com.cn/egames/articleimage/2013/0826/20130826022204121.jpg'
+                        }}/>
+                        <Image
+                            key={3}
                             style={{
                             width: '100%',
                             height: 160

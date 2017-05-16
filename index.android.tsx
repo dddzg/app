@@ -4,7 +4,7 @@
  * @flow
  */
 import React, { Component } from "react";
-import { AppRegistry, NativeModules,StatusBar,View } from "react-native";
+import { AppRegistry, NativeModules} from "react-native";
 import app, { Express, Login, Register } from './src';
 import { StackNavigator } from 'react-navigation';
 import AppState from './src/AppState';
@@ -17,7 +17,7 @@ const SimpleApp = StackNavigator({
     Home: { screen: app },
     Express: { screen: Express },
 });
-class dzg extends Component<any,any> {
+class Dzg extends Component<any,any> {
     componentWillMount() {
         if (UIManager.setLayoutAnimationEnabledExperimental) {
             UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -32,7 +32,7 @@ class dzg extends Component<any,any> {
       </Provider>);
     }
 }
-AppRegistry.registerComponent("app", () => dzg);
+AppRegistry.registerComponent("app", () => Dzg);
 /*
 import {Tab1,Tab2,Tab3} from './src'
 export default class app extends Component < any, {

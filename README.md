@@ -1,6 +1,8 @@
 # app
-app 立应  react-native
+app 代拿快递  react-native
 
+# 截图
+![](1.gif)
 # 坑位
 大概是关于安卓的fetch，后台编码不对的话，会出现一些问题JSON.parse，比较谜的是远程debug模式下这个bug会消失？？可能有版本不同，处理的代码也不同。
 

@@ -72,6 +72,15 @@ class Tab2 extends Component < {appState?:AppState},{data:CardProps[],isRefresh:
                             source={{
                             uri: 'http://images.enet.com.cn/egames/articleimage/2013/0826/20130826022204121.jpg'
                         }}/>
+                        <Image
+                            key={3}
+                            style={{
+                            width: '100%',
+                            height: 160
+                        }}
+                            source={{
+                            uri: 'http://images.enet.com.cn/egames/articleimage/2013/0826/20130826022204121.jpg'
+                        }}/>
                     </Carousel>
                     <View style={{height:'100%',paddingBottom:70}}>
                         {this.props.appState && this.props.appState.data.map((value,_index)=>{

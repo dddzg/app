@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Text,View,Image,Keyboard,AsyncStorage,StatusBar} from 'react-native'
-import {InputItem,List,Toast} from 'antd-mobile'
+import {InputItem,Toast} from 'antd-mobile'
 import { Button } from 'react-native-material-ui';
 import AppState from './AppState'
 import {inject} from 'mobx-react'

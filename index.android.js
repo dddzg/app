@@ -17,7 +17,7 @@ const SimpleApp = StackNavigator({
     Home: { screen: app },
     Express: { screen: Express },
 });
-class dzg extends Component {
+class Dzg extends Component {
     componentWillMount() {
         if (UIManager.setLayoutAnimationEnabledExperimental) {
             UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -32,7 +32,7 @@ class dzg extends Component {
       </Provider>);
     }
 }
-AppRegistry.registerComponent("app", () => dzg);
+AppRegistry.registerComponent("app", () => Dzg);
 /*
 import {Tab1,Tab2,Tab3} from './src'
 export default class app extends Component < any, {

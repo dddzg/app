@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image,TouchableOpacity,Slider,ScrollView,Picker,Switch,DatePickerAndroid,StatusBar,Keyboard} from "react-native";
-import { Icon,List,InputItem,TextareaItem,Toast  } from 'antd-mobile';
+import { Text, View, ScrollView,Picker,Switch,StatusBar,Keyboard} from "react-native";
+import { List,InputItem,TextareaItem,Toast  } from 'antd-mobile';
 import DatePicker from 'react-native-datepicker'
-import {inject,observer} from 'mobx-react'
+import {inject} from 'mobx-react'
 import {post,ip} from './'
 const _min=new Date();
 const temp=new Date();

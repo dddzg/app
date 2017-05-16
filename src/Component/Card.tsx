@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image,ScrollView} from "react-native";
+import { StyleSheet, Text, View, Image} from "react-native";
 import { Icon,Toast } from 'antd-mobile';
 import {post,ip} from '../'
 import {inject} from 'mobx-react'

@@ -1,4 +1,4 @@
-import {observable,computed,action} from 'mobx'
+import {observable,action} from 'mobx'
 import {AsyncStorage} from 'react-native'
 import {NavigationActions} from 'react-navigation'
 import {get,ip} from './'

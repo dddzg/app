@@ -10,10 +10,9 @@ export {post,get} from './utils'
 export {ip} from './config'
 //for lazy
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, Image,StatusBar} from "react-native";
-import {Button,Toast} from "antd-mobile";
-import {TabBar, Icon, Carousel} from "antd-mobile";
-import {Tab1,Tab2,Tab3} from './'
+import {Toast} from "antd-mobile";
+import {TabBar} from "antd-mobile";
+import {Tab1,Tab2} from './'
 export default class app extends Component < any, {
   selectedTab : string
 } > {
@@ -23,7 +22,6 @@ export default class app extends Component < any, {
     };
   public Tab1='Tab1';
   public Tab2='Tab2';
-  public Tab3='Tab3';
   constructor(props) {
     super(props);
     this.state = {
